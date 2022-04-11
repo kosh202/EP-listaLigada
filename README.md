@@ -4,6 +4,9 @@
 
 2) 2 variaveis globais 1 para verificar se o shuffle está ativo ou não e o outro para o indice e id das listas
 
+3) Não é possivel colocar nomes com espaço no meio.
+
+
 Quando inicializado o programa vai mostrar:
 
 shuffle: OFF
