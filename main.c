@@ -27,7 +27,7 @@ struct Musica//musica para podcast
     char nome[64];
   char PalavraChave[64];
   int numero;//indice do podcast
-    struct Podcast* next;
+    struct Musica* next;
 };
 
 void verificarShuffle(int shuffleVerificar);
@@ -68,8 +68,8 @@ int main()
             imprimir(comeco);
             break;
         case 2:
-          deletar(comeco);
           imprimir(comeco);            
+          deletar(comeco);
             break;
         case 3://consultar quais podacsat tem
           imprimir(comeco);
@@ -201,7 +201,7 @@ void entrarPodcast(struct Node* comeco)
 
     do {
       verificarShuffle(shuffle);
-        printf("\nDigite 1 para adicionar\nDigite 2 para deletar\nDigite 3 para tocar musica\nDigite 4 para consultar os musica\nDigite 5 para ativar ou destivar o shuffle\n");
+        printf("\nDigite 1 para adicionar\nDigite 2 para deletar\nDigite 3 para tocar musica\nDigite 4 para consultar os musica\nDigite 5 para ativar ou destivar o shuffle\nDigite 6 para voltar\n");
         scanf("%d", &r);
       indice = 1;
         switch (r) {
@@ -307,32 +307,36 @@ void tocarMusica(struct Musica* comeco, struct Node* inicioPod)//musica
   
   do{
     verificarShuffle(shuffle);
-  printf("\nDigite 1 para ir para o proximo\nDigite 2 para ativa e destivar o shuffle\n");
+  printf("\nDigite 1 para ir para o proximo\nDigite 2 para ativa e destivar o shuffle\nDigite 3 para voltar\n");
   scanf("%d",&op);
     switch (op)
       {
         case 1://ir para a proxima musica
-          
-          comeco = comecoreferencia;
+         comeco = comecoreferencia;
           if(shuffle == 1)
           {
             srand(time(NULL));//numero aleatorio
-            int num = (rand() % (inicioPod->quantidadeMusicas)+1)-1;//variar entre 1 ate o a ultima musica
+            int num = (rand() % (inicioPod->quantidadeMusicas)-1)+1;//variar entre 1 ate o a ultima musica
             
             if(num == xx)
             {
-              while(xx == num)
-                {
-                  num = (rand() % (inicioPod->quantidadeMusicas)+1)-1;
-                }
+              if(num == inicioPod->quantidadeMusicas)
+              {
+                num = (rand() % (inicioPod->quantidadeMusicas)-1)+1;
+                
+                xx = num;
+                percorrerMusicas(comeco,inicioPod, xx);
+                break;
+              }
+            num = (rand() % (inicioPod->quantidadeMusicas)-1)+1;
+              
               xx = num;
               percorrerMusicas(comeco,inicioPod, xx);
               break;
             }
-            xx = num;
           }
-          
-            percorrerMusicas(comeco,inicioPod, xx);
+          xx++;
+          percorrerMusicas(comeco,inicioPod, xx);
         break;
         case 2://ativar sshuffle
           if(shuffle == 0)
